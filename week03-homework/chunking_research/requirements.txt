@@ -1,0 +1,9 @@
+llama-index
+llama-index-llms-dashscope
+llama-index-embeddings-dashscope
+ragas
+pandas
+numpy
+datasets
+sentence-transformers
+torch

@@ -1,0 +1,8 @@
+{
+  "total_documents": 3,
+  "total_original_nodes": 113,
+  "total_selected_nodes": 50,
+  "success_qa_pairs": 50,
+  "failed_nodes": 0,
+  "avg_qa_per_node": 1.0
+}
