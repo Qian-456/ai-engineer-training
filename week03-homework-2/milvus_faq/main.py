@@ -1,8 +1,13 @@
+import uvicorn
+from milvus_faq.config import settings
+from milvus_faq.logger import logger
 
 def main():
-# 作业的入口写在这里。你可以就写这个文件，或者扩展多个文件，但是执行入口留在这里。
-# 在根目录可以通过python -m milvus_faq.main 运行
-    pass
+    """
+    启动 FastAPI 应用
+    """
+    logger.info(f"Starting {settings.PROJECT_NAME}...")
+    uvicorn.run("milvus_faq.api:app", host="0.0.0.0", port=8000)
 
 if __name__ == "__main__":
     main()

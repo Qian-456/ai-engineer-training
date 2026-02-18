@@ -1,0 +1,34 @@
+
+# Python
+__pycache__/
+*.pyc
+.python-version
+.venv/
+venv/
+
+# Environment Variables
+.env
+.env.*
+!.env.example
+
+# IDE
+.vscode/
+.idea/
+.trae/
+
+# Data & Logs
+graph_rag/data/
+graph_rag/logs/
+graph_rag/embed_cache/
+milvus_faq/data/
+milvus_faq/logs/
+milvus_faq/model_cache/
+
+# Docker Volumes
+volumes/
+
+# State files
+.file_state.json
+.rag_state.json
+.es_state.json
+.kg_state.json
