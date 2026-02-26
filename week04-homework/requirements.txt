@@ -1,0 +1,9 @@
+langchain-core
+langchain-deepseek
+langgraph
+pydantic
+pydantic-settings
+redis
+loguru
+python-dotenv
+
