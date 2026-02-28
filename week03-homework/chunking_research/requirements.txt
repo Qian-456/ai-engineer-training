@@ -1,9 +1,14 @@
 llama-index
-llama-index-llms-dashscope
+llama-index-core
+llama-index-llms-openai-like
 llama-index-embeddings-dashscope
+llama-index-readers-file
+langchain-openai
 ragas
 pandas
 numpy
 datasets
 sentence-transformers
-torch
+python-dotenv
+docx2txt
+openpyxl

@@ -9,9 +9,48 @@ import pandas as pd
 from tqdm.asyncio import tqdm
 from llama_index.core import Settings, StorageContext, load_index_from_storage
 from llama_index.core import SimpleDirectoryReader, VectorStoreIndex
+from llama_index.core.postprocessor.types import BaseNodePostprocessor 
+from llama_index.core.schema import NodeWithScore 
+from typing import List 
+from dotenv import load_dotenv
+
+# 加载环境变量
+load_dotenv()
+
+class DualThresholdPostprocessor(BaseNodePostprocessor): 
+    """
+    双重阈值过滤器：
+    1. 绝对阈值 (absolute_threshold): 分数必须高于此值
+    2. 相对阈值 (relative_ratio): 分数必须高于 (最高分 * ratio)
+    """
+    absolute_threshold: float = 0.4
+    relative_ratio: float = 0.5
+
+    def _postprocess_nodes( 
+        self, 
+        nodes: List[NodeWithScore], 
+        query_bundle=None 
+    ) -> List[NodeWithScore]: 
+
+        if not nodes: 
+            return nodes 
+
+        max_score = max(n.score for n in nodes) 
+
+        final_threshold = max( 
+            self.absolute_threshold, 
+            max_score * self.relative_ratio 
+        ) 
+
+        filtered_nodes = [ 
+            n for n in nodes 
+            if n.score >= final_threshold 
+        ] 
+
+        return filtered_nodes 
 
 warnings.filterwarnings("ignore", category=DeprecationWarning)
-from llama_index.core.node_parser import SentenceSplitter
+from llama_index.core.node_parser import SentenceSplitter, SentenceWindowNodeParser
 from llama_index.llms.openai_like import OpenAILike
 from llama_index.embeddings.dashscope import DashScopeEmbedding, DashScopeTextEmbeddingModels
 
@@ -27,7 +66,7 @@ except ImportError as e:
     print("Ragas metrics will be skipped.")
 
 try:
-    from llama_index.core.postprocessor import SentenceTransformerRerank
+    from llama_index.core.postprocessor import SentenceTransformerRerank, MetadataReplacementPostProcessor
     RERANKER_AVAILABLE = True
 except ImportError:
     RERANKER_AVAILABLE = False
@@ -78,14 +117,58 @@ async def evaluate_redundancy(llm, retrieved_text, ground_truth_text):
         print(f"Error in redundancy eval: {e}")
         return 3
 
+import re
+
+# ... (保留其他 imports)
+
+def normalize_text(text: str) -> str:
+    """
+    将中文标点符号转换为英文标点符号，并移除多余空白字符
+    """
+    if not text:
+        return text
+        
+    # 中文标点到英文标点的映射
+    replacements = {
+        '，': ',',
+        '。': '.',
+        '！': '!',
+        '？': '?',
+        '；': ';',
+        '：': ':',
+        '“': '"',
+        '”': '"',
+        '‘': "'",
+        '’': "'",
+        '（': '(',
+        '）': ')',
+        '【': '[',
+        '】': ']',
+        '《': '<',
+        '》': '>',
+    }
+    
+    # 替换标点
+    for ch_char, en_char in replacements.items():
+        text = text.replace(ch_char, en_char)
+        
+    # 移除多余空白（将连续空格/制表符/换行符替换为单个空格）
+    text = re.sub(r'\s+', ' ', text).strip()
+    
+    return text
+
 async def process_one_query(query_engine, item):
     """处理单个 Query 的检索和生成"""
     query = item.get("query") or item.get("question")
-    ground_truth_answer = item.get("answer")
-    ground_truth_context = item.get("context")
     
     if not query:
         return None
+
+    # 对 query 进行标准化处理
+    query = normalize_text(query)
+    
+    ground_truth_answer = item.get("answer")
+    ground_truth_context = item.get("context")
 
     # 增加手动重试机制
     max_retries = 3
@@ -134,19 +217,25 @@ def init_settings():
         embed_input_length=8192
     )
 
-def build_or_load_index(doc_dir="./docs", chunk_size=512, chunk_overlap=50, force_rebuild=False):
+def build_or_load_index(doc_dir="./docs", chunk_size=512, chunk_overlap=50, use_sentence_window=False, window_size=3, force_rebuild=False):
     """
     构建或加载索引
     :param doc_dir: 文档目录
     :param chunk_size: 分块大小
     :param chunk_overlap: 重叠大小
+    :param use_sentence_window: 是否使用句子滑动窗口切分
+    :param window_size: 句子窗口大小
     :param force_rebuild: 是否强制重建索引
     """
     # 根据参数生成唯一的存储目录，避免不同实验混淆
     # 获取 doc_dir 的父目录作为项目根目录
     project_root = os.path.dirname(doc_dir)
     storage_base = os.path.join(project_root, "storage")
-    persist_dir = os.path.join(storage_base, f"storage_chunk_{chunk_size}_{chunk_overlap}")
+    
+    if use_sentence_window:
+        persist_dir = os.path.join(storage_base, f"storage_sentence_window_w{window_size}")
+    else:
+        persist_dir = os.path.join(storage_base, f"storage_chunk_{chunk_size}_{chunk_overlap}")
     
     if os.path.exists(persist_dir) and not force_rebuild:
         print(f"Loading index from {persist_dir}...")
@@ -157,15 +246,65 @@ def build_or_load_index(doc_dir="./docs", chunk_size=512, chunk_overlap=50, forc
             print(f"Failed to load index from {persist_dir}: {e}. Rebuilding...")
     
     # 重建索引逻辑
-    print(f"Building index with Chunk Size: {chunk_size}, Overlap: {chunk_overlap}...")
+    if use_sentence_window:
+        print(f"Building index with Sentence Window (Window Size: {window_size})...")
+    else:
+        print(f"Building index with Chunk Size: {chunk_size}, Overlap: {chunk_overlap}...")
+        
     if not os.path.exists(doc_dir):
         raise FileNotFoundError(f"Document directory '{doc_dir}' not found.")
         
     documents = SimpleDirectoryReader(doc_dir).load_data()
-    sentence_splitter = SentenceSplitter(
-        chunk_size=chunk_size,
-        chunk_overlap=chunk_overlap,
-    )
+    
+    # 对文档内容进行标准化预处理
+    print("Normalizing document content (CN->EN punctuation)...")
+    from llama_index.core import Document
+    normalized_docs = []
+    for doc in documents:
+        # 创建新的 Document 对象以避免 setter 错误
+        new_doc = Document(text=normalize_text(doc.text), metadata=doc.metadata)
+        normalized_docs.append(new_doc)
+    documents = normalized_docs
+    
+    if use_sentence_window:
+        # 使用句子滑动窗口切分
+        # 自定义分句逻辑：先按 \n\n 切分段落，再对段落内的句子进行切分
+        # 这样可以避免跨段落合并成超长句子
+        def custom_sentence_splitter(text: str) -> List[str]:
+            # 1. 首先按双换行符切分段落
+            paragraphs = text.split('\n\n')
+            sentences = []
+            # 使用默认分句器作为兜底，处理段落内的长句子
+            default_splitter = SentenceSplitter(chunk_size=chunk_size, chunk_overlap=0)
+            
+            for para in paragraphs:
+                if not para.strip():
+                    continue
+                # 2. 对每个段落使用默认的分句器进行细分
+                # 注意：SentenceSplitter.split_text 返回的是 list[str]
+                # 有些版本的 split_text 可能返回生成器，这里强制转 list
+                try:
+                    para_sentences = list(default_splitter.split_text(para))
+                    sentences.extend(para_sentences)
+                except Exception as e:
+                    # 如果分句失败，至少保留整段
+                    print(f"Warning: Sentence split failed for paragraph, using whole para: {e}")
+                    sentences.append(para)
+            
+            return sentences
+
+        node_parser = SentenceWindowNodeParser.from_defaults(
+            window_size=window_size,
+            window_metadata_key="window",
+            original_text_metadata_key="original_text",
+            sentence_splitter=custom_sentence_splitter
+        )
+    else:
+        # 使用标准句子切分
+        node_parser = SentenceSplitter(
+            chunk_size=chunk_size,
+            chunk_overlap=chunk_overlap,
+        )
     
     # 增加重试机制
     max_retries = 3
@@ -176,7 +315,7 @@ def build_or_load_index(doc_dir="./docs", chunk_size=512, chunk_overlap=50, forc
             if not os.path.exists(persist_dir):
                 os.makedirs(persist_dir)
                 
-            index = VectorStoreIndex.from_documents(documents, transformations=[sentence_splitter])
+            index = VectorStoreIndex.from_documents(documents, transformations=[node_parser])
             # 保存索引到磁盘
             index.storage_context.persist(persist_dir=persist_dir)
             print(f"Index created and saved to {persist_dir}")
@@ -216,7 +355,9 @@ async def main():
     # 实验参数设置
     CHUNK_SIZE = 128
     CHUNK_OVERLAP = 25
-    FORCE_REBUILD = False # 如果需要强制重新切分并构建索引，设为 True
+    USE_SENTENCE_WINDOW = True # 新增参数：是否启用句子窗口切分
+    WINDOW_SIZE = 1
+    FORCE_REBUILD = False # 因为预处理逻辑改变了，必须强制重建索引
 
     # 2. 构建或加载索引
     try:
@@ -225,6 +366,8 @@ async def main():
             doc_dir=doc_dir,
             chunk_size=CHUNK_SIZE, 
             chunk_overlap=CHUNK_OVERLAP, 
+            use_sentence_window=USE_SENTENCE_WINDOW,
+            window_size=WINDOW_SIZE,
             force_rebuild=FORCE_REBUILD
         )
     except Exception as e:
@@ -239,6 +382,14 @@ async def main():
     FINAL_TOP_N = 3
 
     node_postprocessors = []
+    
+    # 如果使用了 Sentence Window，必须添加 MetadataReplacementPostProcessor
+    if USE_SENTENCE_WINDOW:
+        print("Sentence Window Enabled: Adding MetadataReplacementPostProcessor")
+        node_postprocessors.append(
+            MetadataReplacementPostProcessor(target_metadata_key="window")
+        )
+
     if USE_RERANK:
         # 1. 尝试使用 BGE Reranker
         if RERANKER_AVAILABLE:
@@ -269,6 +420,12 @@ async def main():
             else:
                  print("Warning: No Reranker available. Skipping rerank step.")
                  INITIAL_TOP_K = FINAL_TOP_N
+        
+        # 3. 添加双重阈值过滤 (在 Rerank 之后)
+        print("Adding DualThresholdPostprocessor (Abs > 0.4 or Rel > 0.5 * Max)")
+        node_postprocessors.append(
+            DualThresholdPostprocessor(absolute_threshold=0.4, relative_ratio=0.5)
+        )
     else:
         print(f"Reranking Disabled. Using direct Top-{FINAL_TOP_N} retrieval.")
         INITIAL_TOP_K = FINAL_TOP_N
@@ -428,8 +585,12 @@ async def main():
 
     # 7. 保存结果到本地
     timestamp = time.strftime("%Y%m%d_%H%M%S")
-    # 使用 SentenceSplitter 默认的类名作为文件夹标识，如果未来支持多种splitter，可参数化
-    splitter_name = "sentence_splitter"
+    
+    if USE_SENTENCE_WINDOW:
+        splitter_name = f"sentence_window_w{WINDOW_SIZE}"
+    else:
+        splitter_name = f"chunk_{CHUNK_SIZE}_{CHUNK_OVERLAP}"
+        
     output_dir = os.path.join(project_dir, "output", splitter_name)
     os.makedirs(output_dir, exist_ok=True)
     
