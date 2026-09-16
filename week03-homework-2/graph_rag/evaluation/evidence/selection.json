@@ -1,0 +1,868 @@
+{
+  "frozen_at": "2026-09-16T00:15:46.112065+00:00",
+  "selected": {
+    "dense": {
+      "FUSION_METHOD": "dense"
+    },
+    "bm25": {
+      "FUSION_METHOD": "bm25"
+    },
+    "legacy_weighted": {
+      "FUSION_METHOD": "weighted",
+      "VECTOR_WEIGHT": 0.5,
+      "KEYWORD_WEIGHT": 0.3,
+      "RELATIVE_THRESHOLD": 0.5,
+      "RRF_K": 60,
+      "GRAPH_WEIGHT": 0,
+      "MIN_SCORE_THRESHOLD": 0.2
+    },
+    "tuned_hybrid": {
+      "FUSION_METHOD": "weighted",
+      "VECTOR_WEIGHT": 0.75,
+      "KEYWORD_WEIGHT": 0.25,
+      "RELATIVE_THRESHOLD": 0,
+      "RRF_K": 60,
+      "GRAPH_WEIGHT": 0,
+      "MIN_SCORE_THRESHOLD": 0
+    },
+    "tuned_graph": {
+      "FUSION_METHOD": "weighted",
+      "VECTOR_WEIGHT": 0.25,
+      "KEYWORD_WEIGHT": 0.75,
+      "RELATIVE_THRESHOLD": 0,
+      "RRF_K": 60,
+      "GRAPH_WEIGHT": 0.2,
+      "MIN_SCORE_THRESHOLD": 0
+    },
+    "graph_ablation_no_boost": {
+      "FUSION_METHOD": "weighted",
+      "VECTOR_WEIGHT": 0.25,
+      "KEYWORD_WEIGHT": 0.75,
+      "RELATIVE_THRESHOLD": 0,
+      "RRF_K": 60,
+      "GRAPH_WEIGHT": 0,
+      "MIN_SCORE_THRESHOLD": 0
+    }
+  },
+  "hybrid_trials": [
+    {
+      "config": {
+        "FUSION_METHOD": "weighted",
+        "VECTOR_WEIGHT": 0.25,
+        "KEYWORD_WEIGHT": 0.75,
+        "RELATIVE_THRESHOLD": 0,
+        "RRF_K": 60,
+        "GRAPH_WEIGHT": 0,
+        "MIN_SCORE_THRESHOLD": 0
+      },
+      "metrics": {
+        "recall": 0.7208333333333333,
+        "mrr": 0.8647222222222222,
+        "all_support": 0.49166666666666664,
+        "empty_return": 0.0
+      }
+    },
+    {
+      "config": {
+        "FUSION_METHOD": "weighted",
+        "VECTOR_WEIGHT": 0.25,
+        "KEYWORD_WEIGHT": 0.75,
+        "RELATIVE_THRESHOLD": 0.5,
+        "RRF_K": 60,
+        "GRAPH_WEIGHT": 0,
+        "MIN_SCORE_THRESHOLD": 0
+      },
+      "metrics": {
+        "recall": 0.7,
+        "mrr": 0.8647222222222222,
+        "all_support": 0.45,
+        "empty_return": 0.0
+      }
+    },
+    {
+      "config": {
+        "FUSION_METHOD": "rrf",
+        "VECTOR_WEIGHT": 0.25,
+        "KEYWORD_WEIGHT": 0.75,
+        "RELATIVE_THRESHOLD": 0,
+        "RRF_K": 20,
+        "GRAPH_WEIGHT": 0,
+        "MIN_SCORE_THRESHOLD": 0
+      },
+      "metrics": {
+        "recall": 0.7333333333333333,
+        "mrr": 0.8638888888888889,
+        "all_support": 0.5166666666666667,
+        "empty_return": 0.0
+      }
+    },
+    {
+      "config": {
+        "FUSION_METHOD": "rrf",
+        "VECTOR_WEIGHT": 0.25,
+        "KEYWORD_WEIGHT": 0.75,
+        "RELATIVE_THRESHOLD": 0,
+        "RRF_K": 60,
+        "GRAPH_WEIGHT": 0,
+        "MIN_SCORE_THRESHOLD": 0
+      },
+      "metrics": {
+        "recall": 0.7291666666666666,
+        "mrr": 0.8569444444444444,
+        "all_support": 0.5083333333333333,
+        "empty_return": 0.0
+      }
+    },
+    {
+      "config": {
+        "FUSION_METHOD": "weighted",
+        "VECTOR_WEIGHT": 0.5,
+        "KEYWORD_WEIGHT": 0.5,
+        "RELATIVE_THRESHOLD": 0,
+        "RRF_K": 60,
+        "GRAPH_WEIGHT": 0,
+        "MIN_SCORE_THRESHOLD": 0
+      },
+      "metrics": {
+        "recall": 0.75,
+        "mrr": 0.8586111111111111,
+        "all_support": 0.55,
+        "empty_return": 0.0
+      }
+    },
+    {
+      "config": {
+        "FUSION_METHOD": "weighted",
+        "VECTOR_WEIGHT": 0.5,
+        "KEYWORD_WEIGHT": 0.5,
+        "RELATIVE_THRESHOLD": 0.5,
+        "RRF_K": 60,
+        "GRAPH_WEIGHT": 0,
+        "MIN_SCORE_THRESHOLD": 0
+      },
+      "metrics": {
+        "recall": 0.7416666666666667,
+        "mrr": 0.8586111111111111,
+        "all_support": 0.5333333333333333,
+        "empty_return": 0.0
+      }
+    },
+    {
+      "config": {
+        "FUSION_METHOD": "rrf",
+        "VECTOR_WEIGHT": 0.5,
+        "KEYWORD_WEIGHT": 0.5,
+        "RELATIVE_THRESHOLD": 0,
+        "RRF_K": 20,
+        "GRAPH_WEIGHT": 0,
+        "MIN_SCORE_THRESHOLD": 0
+      },
+      "metrics": {
+        "recall": 0.7708333333333334,
+        "mrr": 0.8529166666666667,
+        "all_support": 0.5666666666666667,
+        "empty_return": 0.0
+      }
+    },
+    {
+      "config": {
+        "FUSION_METHOD": "rrf",
+        "VECTOR_WEIGHT": 0.5,
+        "KEYWORD_WEIGHT": 0.5,
+        "RELATIVE_THRESHOLD": 0,
+        "RRF_K": 60,
+        "GRAPH_WEIGHT": 0,
+        "MIN_SCORE_THRESHOLD": 0
+      },
+      "metrics": {
+        "recall": 0.75,
+        "mrr": 0.8508333333333333,
+        "all_support": 0.5333333333333333,
+        "empty_return": 0.0
+      }
+    },
+    {
+      "config": {
+        "FUSION_METHOD": "weighted",
+        "VECTOR_WEIGHT": 0.75,
+        "KEYWORD_WEIGHT": 0.25,
+        "RELATIVE_THRESHOLD": 0,
+        "RRF_K": 60,
+        "GRAPH_WEIGHT": 0,
+        "MIN_SCORE_THRESHOLD": 0
+      },
+      "metrics": {
+        "recall": 0.775,
+        "mrr": 0.8866666666666667,
+        "all_support": 0.575,
+        "empty_return": 0.0
+      }
+    },
+    {
+      "config": {
+        "FUSION_METHOD": "weighted",
+        "VECTOR_WEIGHT": 0.75,
+        "KEYWORD_WEIGHT": 0.25,
+        "RELATIVE_THRESHOLD": 0.5,
+        "RRF_K": 60,
+        "GRAPH_WEIGHT": 0,
+        "MIN_SCORE_THRESHOLD": 0
+      },
+      "metrics": {
+        "recall": 0.7666666666666667,
+        "mrr": 0.8866666666666667,
+        "all_support": 0.5583333333333333,
+        "empty_return": 0.0
+      }
+    },
+    {
+      "config": {
+        "FUSION_METHOD": "rrf",
+        "VECTOR_WEIGHT": 0.75,
+        "KEYWORD_WEIGHT": 0.25,
+        "RELATIVE_THRESHOLD": 0,
+        "RRF_K": 20,
+        "GRAPH_WEIGHT": 0,
+        "MIN_SCORE_THRESHOLD": 0
+      },
+      "metrics": {
+        "recall": 0.7458333333333333,
+        "mrr": 0.8388888888888889,
+        "all_support": 0.525,
+        "empty_return": 0.0
+      }
+    },
+    {
+      "config": {
+        "FUSION_METHOD": "rrf",
+        "VECTOR_WEIGHT": 0.75,
+        "KEYWORD_WEIGHT": 0.25,
+        "RELATIVE_THRESHOLD": 0,
+        "RRF_K": 60,
+        "GRAPH_WEIGHT": 0,
+        "MIN_SCORE_THRESHOLD": 0
+      },
+      "metrics": {
+        "recall": 0.7583333333333333,
+        "mrr": 0.8388888888888889,
+        "all_support": 0.55,
+        "empty_return": 0.0
+      }
+    }
+  ],
+  "graph_trials": [
+    {
+      "config": {
+        "FUSION_METHOD": "weighted",
+        "VECTOR_WEIGHT": 0.25,
+        "KEYWORD_WEIGHT": 0.75,
+        "RELATIVE_THRESHOLD": 0,
+        "RRF_K": 60,
+        "GRAPH_WEIGHT": 0,
+        "MIN_SCORE_THRESHOLD": 0
+      },
+      "metrics": {
+        "recall": 0.7208333333333333,
+        "mrr": 0.8647222222222222,
+        "all_support": 0.49166666666666664,
+        "empty_return": 0.0
+      }
+    },
+    {
+      "config": {
+        "FUSION_METHOD": "weighted",
+        "VECTOR_WEIGHT": 0.25,
+        "KEYWORD_WEIGHT": 0.75,
+        "RELATIVE_THRESHOLD": 0,
+        "RRF_K": 60,
+        "GRAPH_WEIGHT": 0.1,
+        "MIN_SCORE_THRESHOLD": 0
+      },
+      "metrics": {
+        "recall": 0.7958333333333333,
+        "mrr": 0.9088888888888889,
+        "all_support": 0.6166666666666667,
+        "empty_return": 0.0
+      }
+    },
+    {
+      "config": {
+        "FUSION_METHOD": "weighted",
+        "VECTOR_WEIGHT": 0.25,
+        "KEYWORD_WEIGHT": 0.75,
+        "RELATIVE_THRESHOLD": 0,
+        "RRF_K": 60,
+        "GRAPH_WEIGHT": 0.2,
+        "MIN_SCORE_THRESHOLD": 0
+      },
+      "metrics": {
+        "recall": 0.8416666666666667,
+        "mrr": 0.9158333333333334,
+        "all_support": 0.7,
+        "empty_return": 0.0
+      }
+    },
+    {
+      "config": {
+        "FUSION_METHOD": "weighted",
+        "VECTOR_WEIGHT": 0.25,
+        "KEYWORD_WEIGHT": 0.75,
+        "RELATIVE_THRESHOLD": 0.5,
+        "RRF_K": 60,
+        "GRAPH_WEIGHT": 0,
+        "MIN_SCORE_THRESHOLD": 0
+      },
+      "metrics": {
+        "recall": 0.7,
+        "mrr": 0.8647222222222222,
+        "all_support": 0.45,
+        "empty_return": 0.0
+      }
+    },
+    {
+      "config": {
+        "FUSION_METHOD": "weighted",
+        "VECTOR_WEIGHT": 0.25,
+        "KEYWORD_WEIGHT": 0.75,
+        "RELATIVE_THRESHOLD": 0.5,
+        "RRF_K": 60,
+        "GRAPH_WEIGHT": 0.1,
+        "MIN_SCORE_THRESHOLD": 0
+      },
+      "metrics": {
+        "recall": 0.7791666666666667,
+        "mrr": 0.9088888888888889,
+        "all_support": 0.5833333333333334,
+        "empty_return": 0.0
+      }
+    },
+    {
+      "config": {
+        "FUSION_METHOD": "weighted",
+        "VECTOR_WEIGHT": 0.25,
+        "KEYWORD_WEIGHT": 0.75,
+        "RELATIVE_THRESHOLD": 0.5,
+        "RRF_K": 60,
+        "GRAPH_WEIGHT": 0.2,
+        "MIN_SCORE_THRESHOLD": 0
+      },
+      "metrics": {
+        "recall": 0.8125,
+        "mrr": 0.9158333333333334,
+        "all_support": 0.6416666666666667,
+        "empty_return": 0.0
+      }
+    },
+    {
+      "config": {
+        "FUSION_METHOD": "rrf",
+        "VECTOR_WEIGHT": 0.25,
+        "KEYWORD_WEIGHT": 0.75,
+        "RELATIVE_THRESHOLD": 0,
+        "RRF_K": 20,
+        "GRAPH_WEIGHT": 0,
+        "MIN_SCORE_THRESHOLD": 0
+      },
+      "metrics": {
+        "recall": 0.7333333333333333,
+        "mrr": 0.8638888888888889,
+        "all_support": 0.5166666666666667,
+        "empty_return": 0.0
+      }
+    },
+    {
+      "config": {
+        "FUSION_METHOD": "rrf",
+        "VECTOR_WEIGHT": 0.25,
+        "KEYWORD_WEIGHT": 0.75,
+        "RELATIVE_THRESHOLD": 0,
+        "RRF_K": 20,
+        "GRAPH_WEIGHT": 0.1,
+        "MIN_SCORE_THRESHOLD": 0
+      },
+      "metrics": {
+        "recall": 0.7708333333333334,
+        "mrr": 0.89625,
+        "all_support": 0.5666666666666667,
+        "empty_return": 0.0
+      }
+    },
+    {
+      "config": {
+        "FUSION_METHOD": "rrf",
+        "VECTOR_WEIGHT": 0.25,
+        "KEYWORD_WEIGHT": 0.75,
+        "RELATIVE_THRESHOLD": 0,
+        "RRF_K": 20,
+        "GRAPH_WEIGHT": 0.2,
+        "MIN_SCORE_THRESHOLD": 0
+      },
+      "metrics": {
+        "recall": 0.8208333333333333,
+        "mrr": 0.9133333333333333,
+        "all_support": 0.6583333333333333,
+        "empty_return": 0.0
+      }
+    },
+    {
+      "config": {
+        "FUSION_METHOD": "rrf",
+        "VECTOR_WEIGHT": 0.25,
+        "KEYWORD_WEIGHT": 0.75,
+        "RELATIVE_THRESHOLD": 0,
+        "RRF_K": 60,
+        "GRAPH_WEIGHT": 0,
+        "MIN_SCORE_THRESHOLD": 0
+      },
+      "metrics": {
+        "recall": 0.7291666666666666,
+        "mrr": 0.8569444444444444,
+        "all_support": 0.5083333333333333,
+        "empty_return": 0.0
+      }
+    },
+    {
+      "config": {
+        "FUSION_METHOD": "rrf",
+        "VECTOR_WEIGHT": 0.25,
+        "KEYWORD_WEIGHT": 0.75,
+        "RELATIVE_THRESHOLD": 0,
+        "RRF_K": 60,
+        "GRAPH_WEIGHT": 0.1,
+        "MIN_SCORE_THRESHOLD": 0
+      },
+      "metrics": {
+        "recall": 0.8041666666666667,
+        "mrr": 0.9161111111111111,
+        "all_support": 0.625,
+        "empty_return": 0.0
+      }
+    },
+    {
+      "config": {
+        "FUSION_METHOD": "rrf",
+        "VECTOR_WEIGHT": 0.25,
+        "KEYWORD_WEIGHT": 0.75,
+        "RELATIVE_THRESHOLD": 0,
+        "RRF_K": 60,
+        "GRAPH_WEIGHT": 0.2,
+        "MIN_SCORE_THRESHOLD": 0
+      },
+      "metrics": {
+        "recall": 0.8333333333333334,
+        "mrr": 0.9063888888888889,
+        "all_support": 0.6833333333333333,
+        "empty_return": 0.0
+      }
+    },
+    {
+      "config": {
+        "FUSION_METHOD": "weighted",
+        "VECTOR_WEIGHT": 0.5,
+        "KEYWORD_WEIGHT": 0.5,
+        "RELATIVE_THRESHOLD": 0,
+        "RRF_K": 60,
+        "GRAPH_WEIGHT": 0,
+        "MIN_SCORE_THRESHOLD": 0
+      },
+      "metrics": {
+        "recall": 0.75,
+        "mrr": 0.8586111111111111,
+        "all_support": 0.55,
+        "empty_return": 0.0
+      }
+    },
+    {
+      "config": {
+        "FUSION_METHOD": "weighted",
+        "VECTOR_WEIGHT": 0.5,
+        "KEYWORD_WEIGHT": 0.5,
+        "RELATIVE_THRESHOLD": 0,
+        "RRF_K": 60,
+        "GRAPH_WEIGHT": 0.1,
+        "MIN_SCORE_THRESHOLD": 0
+      },
+      "metrics": {
+        "recall": 0.7958333333333333,
+        "mrr": 0.90375,
+        "all_support": 0.6166666666666667,
+        "empty_return": 0.0
+      }
+    },
+    {
+      "config": {
+        "FUSION_METHOD": "weighted",
+        "VECTOR_WEIGHT": 0.5,
+        "KEYWORD_WEIGHT": 0.5,
+        "RELATIVE_THRESHOLD": 0,
+        "RRF_K": 60,
+        "GRAPH_WEIGHT": 0.2,
+        "MIN_SCORE_THRESHOLD": 0
+      },
+      "metrics": {
+        "recall": 0.8333333333333334,
+        "mrr": 0.9141666666666667,
+        "all_support": 0.6916666666666667,
+        "empty_return": 0.0
+      }
+    },
+    {
+      "config": {
+        "FUSION_METHOD": "weighted",
+        "VECTOR_WEIGHT": 0.5,
+        "KEYWORD_WEIGHT": 0.5,
+        "RELATIVE_THRESHOLD": 0.5,
+        "RRF_K": 60,
+        "GRAPH_WEIGHT": 0,
+        "MIN_SCORE_THRESHOLD": 0
+      },
+      "metrics": {
+        "recall": 0.7416666666666667,
+        "mrr": 0.8586111111111111,
+        "all_support": 0.5333333333333333,
+        "empty_return": 0.0
+      }
+    },
+    {
+      "config": {
+        "FUSION_METHOD": "weighted",
+        "VECTOR_WEIGHT": 0.5,
+        "KEYWORD_WEIGHT": 0.5,
+        "RELATIVE_THRESHOLD": 0.5,
+        "RRF_K": 60,
+        "GRAPH_WEIGHT": 0.1,
+        "MIN_SCORE_THRESHOLD": 0
+      },
+      "metrics": {
+        "recall": 0.7833333333333333,
+        "mrr": 0.90375,
+        "all_support": 0.5916666666666667,
+        "empty_return": 0.0
+      }
+    },
+    {
+      "config": {
+        "FUSION_METHOD": "weighted",
+        "VECTOR_WEIGHT": 0.5,
+        "KEYWORD_WEIGHT": 0.5,
+        "RELATIVE_THRESHOLD": 0.5,
+        "RRF_K": 60,
+        "GRAPH_WEIGHT": 0.2,
+        "MIN_SCORE_THRESHOLD": 0
+      },
+      "metrics": {
+        "recall": 0.8125,
+        "mrr": 0.9141666666666667,
+        "all_support": 0.65,
+        "empty_return": 0.0
+      }
+    },
+    {
+      "config": {
+        "FUSION_METHOD": "rrf",
+        "VECTOR_WEIGHT": 0.5,
+        "KEYWORD_WEIGHT": 0.5,
+        "RELATIVE_THRESHOLD": 0,
+        "RRF_K": 20,
+        "GRAPH_WEIGHT": 0,
+        "MIN_SCORE_THRESHOLD": 0
+      },
+      "metrics": {
+        "recall": 0.7708333333333334,
+        "mrr": 0.8529166666666667,
+        "all_support": 0.5666666666666667,
+        "empty_return": 0.0
+      }
+    },
+    {
+      "config": {
+        "FUSION_METHOD": "rrf",
+        "VECTOR_WEIGHT": 0.5,
+        "KEYWORD_WEIGHT": 0.5,
+        "RELATIVE_THRESHOLD": 0,
+        "RRF_K": 20,
+        "GRAPH_WEIGHT": 0.1,
+        "MIN_SCORE_THRESHOLD": 0
+      },
+      "metrics": {
+        "recall": 0.7916666666666666,
+        "mrr": 0.9033333333333334,
+        "all_support": 0.6,
+        "empty_return": 0.0
+      }
+    },
+    {
+      "config": {
+        "FUSION_METHOD": "rrf",
+        "VECTOR_WEIGHT": 0.5,
+        "KEYWORD_WEIGHT": 0.5,
+        "RELATIVE_THRESHOLD": 0,
+        "RRF_K": 20,
+        "GRAPH_WEIGHT": 0.2,
+        "MIN_SCORE_THRESHOLD": 0
+      },
+      "metrics": {
+        "recall": 0.825,
+        "mrr": 0.9113888888888888,
+        "all_support": 0.6666666666666666,
+        "empty_return": 0.0
+      }
+    },
+    {
+      "config": {
+        "FUSION_METHOD": "rrf",
+        "VECTOR_WEIGHT": 0.5,
+        "KEYWORD_WEIGHT": 0.5,
+        "RELATIVE_THRESHOLD": 0,
+        "RRF_K": 60,
+        "GRAPH_WEIGHT": 0,
+        "MIN_SCORE_THRESHOLD": 0
+      },
+      "metrics": {
+        "recall": 0.75,
+        "mrr": 0.8508333333333333,
+        "all_support": 0.5333333333333333,
+        "empty_return": 0.0
+      }
+    },
+    {
+      "config": {
+        "FUSION_METHOD": "rrf",
+        "VECTOR_WEIGHT": 0.5,
+        "KEYWORD_WEIGHT": 0.5,
+        "RELATIVE_THRESHOLD": 0,
+        "RRF_K": 60,
+        "GRAPH_WEIGHT": 0.1,
+        "MIN_SCORE_THRESHOLD": 0
+      },
+      "metrics": {
+        "recall": 0.8125,
+        "mrr": 0.90375,
+        "all_support": 0.6416666666666667,
+        "empty_return": 0.0
+      }
+    },
+    {
+      "config": {
+        "FUSION_METHOD": "rrf",
+        "VECTOR_WEIGHT": 0.5,
+        "KEYWORD_WEIGHT": 0.5,
+        "RELATIVE_THRESHOLD": 0,
+        "RRF_K": 60,
+        "GRAPH_WEIGHT": 0.2,
+        "MIN_SCORE_THRESHOLD": 0
+      },
+      "metrics": {
+        "recall": 0.825,
+        "mrr": 0.8968055555555555,
+        "all_support": 0.6666666666666666,
+        "empty_return": 0.0
+      }
+    },
+    {
+      "config": {
+        "FUSION_METHOD": "weighted",
+        "VECTOR_WEIGHT": 0.75,
+        "KEYWORD_WEIGHT": 0.25,
+        "RELATIVE_THRESHOLD": 0,
+        "RRF_K": 60,
+        "GRAPH_WEIGHT": 0,
+        "MIN_SCORE_THRESHOLD": 0
+      },
+      "metrics": {
+        "recall": 0.775,
+        "mrr": 0.8866666666666667,
+        "all_support": 0.575,
+        "empty_return": 0.0
+      }
+    },
+    {
+      "config": {
+        "FUSION_METHOD": "weighted",
+        "VECTOR_WEIGHT": 0.75,
+        "KEYWORD_WEIGHT": 0.25,
+        "RELATIVE_THRESHOLD": 0,
+        "RRF_K": 60,
+        "GRAPH_WEIGHT": 0.1,
+        "MIN_SCORE_THRESHOLD": 0
+      },
+      "metrics": {
+        "recall": 0.825,
+        "mrr": 0.9269444444444445,
+        "all_support": 0.6666666666666666,
+        "empty_return": 0.0
+      }
+    },
+    {
+      "config": {
+        "FUSION_METHOD": "weighted",
+        "VECTOR_WEIGHT": 0.75,
+        "KEYWORD_WEIGHT": 0.25,
+        "RELATIVE_THRESHOLD": 0,
+        "RRF_K": 60,
+        "GRAPH_WEIGHT": 0.2,
+        "MIN_SCORE_THRESHOLD": 0
+      },
+      "metrics": {
+        "recall": 0.8416666666666667,
+        "mrr": 0.9116666666666667,
+        "all_support": 0.7,
+        "empty_return": 0.0
+      }
+    },
+    {
+      "config": {
+        "FUSION_METHOD": "weighted",
+        "VECTOR_WEIGHT": 0.75,
+        "KEYWORD_WEIGHT": 0.25,
+        "RELATIVE_THRESHOLD": 0.5,
+        "RRF_K": 60,
+        "GRAPH_WEIGHT": 0,
+        "MIN_SCORE_THRESHOLD": 0
+      },
+      "metrics": {
+        "recall": 0.7666666666666667,
+        "mrr": 0.8866666666666667,
+        "all_support": 0.5583333333333333,
+        "empty_return": 0.0
+      }
+    },
+    {
+      "config": {
+        "FUSION_METHOD": "weighted",
+        "VECTOR_WEIGHT": 0.75,
+        "KEYWORD_WEIGHT": 0.25,
+        "RELATIVE_THRESHOLD": 0.5,
+        "RRF_K": 60,
+        "GRAPH_WEIGHT": 0.1,
+        "MIN_SCORE_THRESHOLD": 0
+      },
+      "metrics": {
+        "recall": 0.8166666666666667,
+        "mrr": 0.9269444444444445,
+        "all_support": 0.65,
+        "empty_return": 0.0
+      }
+    },
+    {
+      "config": {
+        "FUSION_METHOD": "weighted",
+        "VECTOR_WEIGHT": 0.75,
+        "KEYWORD_WEIGHT": 0.25,
+        "RELATIVE_THRESHOLD": 0.5,
+        "RRF_K": 60,
+        "GRAPH_WEIGHT": 0.2,
+        "MIN_SCORE_THRESHOLD": 0
+      },
+      "metrics": {
+        "recall": 0.8291666666666667,
+        "mrr": 0.9116666666666667,
+        "all_support": 0.675,
+        "empty_return": 0.0
+      }
+    },
+    {
+      "config": {
+        "FUSION_METHOD": "rrf",
+        "VECTOR_WEIGHT": 0.75,
+        "KEYWORD_WEIGHT": 0.25,
+        "RELATIVE_THRESHOLD": 0,
+        "RRF_K": 20,
+        "GRAPH_WEIGHT": 0,
+        "MIN_SCORE_THRESHOLD": 0
+      },
+      "metrics": {
+        "recall": 0.7458333333333333,
+        "mrr": 0.8388888888888889,
+        "all_support": 0.525,
+        "empty_return": 0.0
+      }
+    },
+    {
+      "config": {
+        "FUSION_METHOD": "rrf",
+        "VECTOR_WEIGHT": 0.75,
+        "KEYWORD_WEIGHT": 0.25,
+        "RELATIVE_THRESHOLD": 0,
+        "RRF_K": 20,
+        "GRAPH_WEIGHT": 0.1,
+        "MIN_SCORE_THRESHOLD": 0
+      },
+      "metrics": {
+        "recall": 0.775,
+        "mrr": 0.8875,
+        "all_support": 0.5833333333333334,
+        "empty_return": 0.0
+      }
+    },
+    {
+      "config": {
+        "FUSION_METHOD": "rrf",
+        "VECTOR_WEIGHT": 0.75,
+        "KEYWORD_WEIGHT": 0.25,
+        "RELATIVE_THRESHOLD": 0,
+        "RRF_K": 20,
+        "GRAPH_WEIGHT": 0.2,
+        "MIN_SCORE_THRESHOLD": 0
+      },
+      "metrics": {
+        "recall": 0.8083333333333333,
+        "mrr": 0.8909722222222223,
+        "all_support": 0.6416666666666667,
+        "empty_return": 0.0
+      }
+    },
+    {
+      "config": {
+        "FUSION_METHOD": "rrf",
+        "VECTOR_WEIGHT": 0.75,
+        "KEYWORD_WEIGHT": 0.25,
+        "RELATIVE_THRESHOLD": 0,
+        "RRF_K": 60,
+        "GRAPH_WEIGHT": 0,
+        "MIN_SCORE_THRESHOLD": 0
+      },
+      "metrics": {
+        "recall": 0.7583333333333333,
+        "mrr": 0.8388888888888889,
+        "all_support": 0.55,
+        "empty_return": 0.0
+      }
+    },
+    {
+      "config": {
+        "FUSION_METHOD": "rrf",
+        "VECTOR_WEIGHT": 0.75,
+        "KEYWORD_WEIGHT": 0.25,
+        "RELATIVE_THRESHOLD": 0,
+        "RRF_K": 60,
+        "GRAPH_WEIGHT": 0.1,
+        "MIN_SCORE_THRESHOLD": 0
+      },
+      "metrics": {
+        "recall": 0.8041666666666667,
+        "mrr": 0.8808333333333334,
+        "all_support": 0.6333333333333333,
+        "empty_return": 0.0
+      }
+    },
+    {
+      "config": {
+        "FUSION_METHOD": "rrf",
+        "VECTOR_WEIGHT": 0.75,
+        "KEYWORD_WEIGHT": 0.25,
+        "RELATIVE_THRESHOLD": 0,
+        "RRF_K": 60,
+        "GRAPH_WEIGHT": 0.2,
+        "MIN_SCORE_THRESHOLD": 0
+      },
+      "metrics": {
+        "recall": 0.825,
+        "mrr": 0.8805555555555556,
+        "all_support": 0.675,
+        "empty_return": 0.0
+      }
+    }
+  ],
+  "replayed_from_sha256": "cd5d59200188c418f9ee043445bbe2206288b5b4086a0bf110b178cbf2ea39cd"
+}

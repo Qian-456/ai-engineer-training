@@ -216,3 +216,7 @@ __marimo__/
 
 week02/requirements.txt
 week02/uv.lock
+
+.venv-eval/
+log.txt
+log-history-*.txt

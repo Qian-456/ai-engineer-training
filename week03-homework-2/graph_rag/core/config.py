@@ -76,6 +76,9 @@ class RAGSettings(BaseSettings):
     GRAPH_WEIGHT: float = 0.2
     MIN_SCORE_THRESHOLD: float = 0.2
     TOP_K: int = 10
+    FUSION_METHOD: Literal['weighted', 'rrf'] = 'weighted'
+    RRF_K: int = Field(60, gt=0)
+    RELATIVE_THRESHOLD: float = Field(0.5, ge=0, le=1)
 
 class DataSettings(BaseSettings):
     """

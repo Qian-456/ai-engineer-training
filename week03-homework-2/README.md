@@ -50,3 +50,7 @@
 ```
 https://github.com/your-username/ai-engineer-training/tree/main/week03-homework-2
 ```
+
+## 公开数据检索评测
+
+见 [GraphRAG 评测与人工验收](graph_rag/evaluation/README.md)：固定 HotpotQA 数据、调参/测试划分、共享融合评分、图消融及逐题结果。

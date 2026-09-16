@@ -32,3 +32,7 @@ volumes/
 .rag_state.json
 .es_state.json
 .kg_state.json
+
+.venv-eval/
+log.txt
+log-history-*.txt

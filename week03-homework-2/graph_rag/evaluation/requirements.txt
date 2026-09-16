@@ -1,0 +1,11 @@
+numpy==1.26.4
+scipy==1.13.1
+scikit-learn==1.5.2
+torch==2.5.1
+sentence-transformers==4.1.0
+rank-bm25==0.2.2
+pyarrow==22.0.0
+loguru>=0.7,<1
+pytest>=8,<9
+pydantic>=2,<3
+pydantic-settings>=2,<3

@@ -1,0 +1,210 @@
+{
+  "schema_version": "1.0",
+  "dataset": "HotpotQA distractor validation",
+  "data_revision": "1908d6afbbead072334abe2965f91bd2709910ab",
+  "data_sha256": "c20b638ca82b21d04fe12e14ff417ad05153d4d215a65de54497fca4e972f7c6",
+  "model": "sentence-transformers/all-MiniLM-L6-v2",
+  "model_revision": "1110a243fdf4706b3f48f1d95db1a4f5529b4d41",
+  "tune_count": 120,
+  "test_count": 240,
+  "corpus_count": 3562,
+  "k": 5,
+  "test_metrics": {
+    "dense": {
+      "recall": 0.7729166666666667,
+      "mrr": 0.888125,
+      "all_support": 0.575,
+      "empty_return": 0.0
+    },
+    "bm25": {
+      "recall": 0.7270833333333333,
+      "mrr": 0.8700694444444445,
+      "all_support": 0.4791666666666667,
+      "empty_return": 0.0
+    },
+    "legacy_weighted": {
+      "recall": 0.7875,
+      "mrr": 0.9118055555555556,
+      "all_support": 0.5875,
+      "empty_return": 0.0
+    },
+    "tuned_hybrid": {
+      "recall": 0.7979166666666667,
+      "mrr": 0.9175,
+      "all_support": 0.6041666666666666,
+      "empty_return": 0.0
+    },
+    "tuned_graph": {
+      "recall": 0.8354166666666667,
+      "mrr": 0.9332638888888888,
+      "all_support": 0.6833333333333333,
+      "empty_return": 0.0
+    },
+    "graph_ablation_no_boost": {
+      "recall": 0.7666666666666667,
+      "mrr": 0.8933333333333333,
+      "all_support": 0.5458333333333333,
+      "empty_return": 0.0
+    }
+  },
+  "paired_comparisons": {
+    "dense": {
+      "recall_delta": 0.0625,
+      "bootstrap_95_percent": [
+        0.029166666666666667,
+        0.09583333333333334
+      ],
+      "improved": 48,
+      "regressed": 19,
+      "unchanged": 173,
+      "resamples": 2000
+    },
+    "legacy_weighted": {
+      "recall_delta": 0.04791666666666667,
+      "bootstrap_95_percent": [
+        0.022916666666666665,
+        0.075
+      ],
+      "improved": 33,
+      "regressed": 10,
+      "unchanged": 197,
+      "resamples": 2000
+    },
+    "tuned_hybrid": {
+      "recall_delta": 0.0375,
+      "bootstrap_95_percent": [
+        0.0125,
+        0.06458333333333334
+      ],
+      "improved": 30,
+      "regressed": 12,
+      "unchanged": 198,
+      "resamples": 2000
+    },
+    "graph_ablation_no_boost": {
+      "recall_delta": 0.06875,
+      "bootstrap_95_percent": [
+        0.04791666666666667,
+        0.09375
+      ],
+      "improved": 34,
+      "regressed": 1,
+      "unchanged": 205,
+      "resamples": 2000
+    }
+  },
+  "by_type": {
+    "bridge": {
+      "dense": {
+        "recall": 0.729381443298969,
+        "mrr": 0.8835051546391753,
+        "all_support": 0.4948453608247423,
+        "empty_return": 0.0
+      },
+      "bm25": {
+        "recall": 0.6958762886597938,
+        "mrr": 0.8695017182130584,
+        "all_support": 0.422680412371134,
+        "empty_return": 0.0
+      },
+      "legacy_weighted": {
+        "recall": 0.7474226804123711,
+        "mrr": 0.9106529209621993,
+        "all_support": 0.5103092783505154,
+        "empty_return": 0.0
+      },
+      "tuned_hybrid": {
+        "recall": 0.7603092783505154,
+        "mrr": 0.9142611683848798,
+        "all_support": 0.5309278350515464,
+        "empty_return": 0.0
+      },
+      "tuned_graph": {
+        "recall": 0.8015463917525774,
+        "mrr": 0.9277491408934707,
+        "all_support": 0.6185567010309279,
+        "empty_return": 0.0
+      },
+      "graph_ablation_no_boost": {
+        "recall": 0.729381443298969,
+        "mrr": 0.8938144329896908,
+        "all_support": 0.4742268041237113,
+        "empty_return": 0.0
+      }
+    },
+    "comparison": {
+      "dense": {
+        "recall": 0.9565217391304348,
+        "mrr": 0.907608695652174,
+        "all_support": 0.9130434782608695,
+        "empty_return": 0.0
+      },
+      "bm25": {
+        "recall": 0.8586956521739131,
+        "mrr": 0.8724637681159421,
+        "all_support": 0.717391304347826,
+        "empty_return": 0.0
+      },
+      "legacy_weighted": {
+        "recall": 0.9565217391304348,
+        "mrr": 0.9166666666666666,
+        "all_support": 0.9130434782608695,
+        "empty_return": 0.0
+      },
+      "tuned_hybrid": {
+        "recall": 0.9565217391304348,
+        "mrr": 0.9311594202898551,
+        "all_support": 0.9130434782608695,
+        "empty_return": 0.0
+      },
+      "tuned_graph": {
+        "recall": 0.9782608695652174,
+        "mrr": 0.9565217391304348,
+        "all_support": 0.9565217391304348,
+        "empty_return": 0.0
+      },
+      "graph_ablation_no_boost": {
+        "recall": 0.9239130434782609,
+        "mrr": 0.8913043478260869,
+        "all_support": 0.8478260869565217,
+        "empty_return": 0.0
+      }
+    }
+  },
+  "graph": {
+    "nodes": 3562,
+    "edges": 2797,
+    "query_seeded": 280,
+    "device": "cuda:0",
+    "max_seq_length": 256
+  },
+  "seconds": 17.949309900002845,
+  "revision": "fa6723678daa000ce210da2419daf60eeaf1425d",
+  "dirty": true,
+  "source_sha256": {
+    "week03-homework-2/graph_rag/evaluation/benchmark.py": "e451717b9cc2e9a4548d54c169ccce256de02fe5770b9311781e66651a43e488",
+    "week03-homework-2/graph_rag/evaluation/metrics.py": "2d6271a5e19bf7e8347f541f44680d5f8929d55199c69bc97f760313c48f415a",
+    "week03-homework-2/graph_rag/evaluation/prepare.py": "0c9fdc134b880b7cdf85ff34cd7b3128db6da400f9140ea2effc9711dea0cb0e",
+    "week03-homework-2/graph_rag/evaluation/test_evaluation.py": "b87c61fb6d4109311e919f39a57ab916f363786e80ef0ad30b2b0bed8a97fca6",
+    "week03-homework-2/graph_rag/evaluation/__init__.py": "94ca1763ab81240ba4ba653468ff2461f001784c121544a429801fe0488d281f",
+    "week03-homework-2/graph_rag/services/fusion.py": "d44f7f93cd153c518573becbe3c4331a8961f1f908a158d23d26bd8663002197",
+    "week03-homework-2/graph_rag/services/generator.py": "85ff92c30687ce8291e64a17a9f1660351c16f760f079e6df38d8d3aaa541888",
+    "week03-homework-2/graph_rag/services/pipeline.py": "a1126b97d1633a56fb672ad6f40657bf77c42ee1b18587f964e76baae12d32db",
+    "week03-homework-2/graph_rag/services/query_service.py": "f615cdce6b366d3863cb432283c09df6a1717a4092d5094e69bcaf5ee760f743",
+    "week03-homework-2/graph_rag/services/ranker.py": "9b1a156cf4fb65b51a199da14b0fd09ffc1ba0efe9f863eefa4086521e300d00",
+    "week03-homework-2/graph_rag/services/rebuild_service.py": "ae7a16ae64bf3f8ee4961f3212115c253962c7d58c6b5cf4c663a4ff4dc82ecf",
+    "week03-homework-2/graph_rag/services/retriever.py": "c3f29060d12a529bce74dcf750b40acea9f62626441fc703afcbf5d501b33817",
+    "week03-homework-2/graph_rag/services/syncer.py": "8d587ecd03b3b82dff54e2f712c495357e1299829512a4e6aa28556150e3773d",
+    "week03-homework-2/graph_rag/services/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "python": "3.12.3",
+  "dependencies": {
+    "numpy": "1.26.4",
+    "scipy": "1.13.1",
+    "scikit-learn": "1.5.2",
+    "torch": "2.5.1+cu121",
+    "sentence-transformers": "4.1.0",
+    "rank-bm25": "0.2.2",
+    "pyarrow": "22.0.0"
+  }
+}
